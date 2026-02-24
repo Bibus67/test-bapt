@@ -123,7 +123,7 @@
         }
 
         #sve-root .sve-h1 {
-            /*font-size: 28px;*/
+            font-size: 35px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -1720,5 +1720,6 @@
         }
         .sve-picker-input-group.sve-hex-group { flex: 3; }
         .sve-picker-input-group.sve-alpha-group { flex: 2; }
+
 
 
