@@ -1,0 +1,1729 @@
+#sve-root * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #sve-root {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #sve-root::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+            z-index: 0;
+
+        }
+
+
+        #sve-root::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(167, 139, 250, 0.07) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform;
+            animation: bubble 40s linear infinite;
+        }
+
+        @keyframes bubble {
+            0%   { transform: translateY(0); }
+            100% { transform: translateY(-60px); }
+        }
+
+        #sve-root .sve-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(40, 20, 60, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 1;
+        }
+
+        #sve-root .sve-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+            border-radius: 30px 30px 0 0;
+            pointer-events: none;
+        }
+
+        #sve-root .sve-container::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        #sve-root .sve-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(60, 30, 80, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 100;
+        }
+
+        #sve-root .sve-header::before {
+            display: none;
+        }
+
+        #sve-root .sve-header::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        #sve-root .sve-h1 {
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #FFFFFF;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        #sve-root h1::before {
+            content: "🎨";
+            font-size: 32px;
+            -webkit-text-fill-color: initial;
+            filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.5));
+        }
+
+        #sve-root .sve-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        #sve-root .sve-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #sve-root .sve-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        #sve-root button:hover::before {
+            left: 100%;
+        }
+
+        #sve-root .sve-btn-import {
+            background: transparent;
+            color: #84cc16;
+            border: 2px solid #84cc16;
+            box-shadow: 0 0 15px rgba(132, 204, 22, 0.4);
+        }
+
+        #sve-root .sve-btn-import:hover {
+            background: rgba(132, 204, 22, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(132, 204, 22, 0.7);
+        }
+
+        #sve-root .sve-btn-reset {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #a78bfa;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #sve-root .sve-btn-reset:hover:not(:disabled) {
+            background: rgba(167, 139, 250, 0.2);
+            color: #fff;
+            border-color: #a78bfa;
+            transform: rotate(-45deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+        }
+
+        #sve-root .sve-btn-reset:disabled {
+            color: rgba(167, 139, 250, 0.3);
+            cursor: not-allowed;
+            opacity: 0.3;
+            border-color: rgba(167, 139, 250, 0.1);
+        }
+
+        #sve-root .sve-btn-reset:active:not(:disabled) {
+            transform: rotate(-90deg) scale(1.1);
+        }
+
+
+        #sve-root .sve-btn-export {
+            background: #a3e635;
+            color: #000000;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(163, 230, 53, 0.6);
+        }
+
+        #sve-root .sve-btn-export:hover:not(:disabled) {
+            background: #a3e635;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(163, 230, 53, 0.9);
+        }
+
+        #sve-root .sve-btn-export:disabled {
+            background: rgba(74, 74, 94, 0.3);
+            color: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ====== MODAL EXPORT ====== */
+        #sve-export-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.42);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 99998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #sve-export-modal.sve-active { display: flex; }
+
+        #sve-export-modal .sve-emod-card {
+            background: rgba(18, 8, 35, 0.97);
+            border-radius: 24px;
+            padding: 32px 32px 28px;
+            border: 1px solid rgba(168, 85, 247, 0.28);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.05) inset;
+            width: 460px;
+            max-width: calc(100vw - 32px);
+            animation: emodIn 0.26s cubic-bezier(0.34, 1.5, 0.64, 1);
+        }
+        @keyframes emodIn {
+            from { opacity: 0; transform: scale(0.88) translateY(20px); }
+            to   { opacity: 1; transform: scale(1)    translateY(0); }
+        }
+
+        #sve-export-modal .sve-emod-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 26px;
+        }
+        #sve-export-modal .sve-emod-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fff;
+        }
+        #sve-export-modal .sve-emod-close {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.18s;
+            flex-shrink: 0;
+        }
+        #sve-export-modal .sve-emod-close:hover {
+            background: rgba(239,68,68,0.22);
+            border-color: rgba(239,68,68,0.45);
+            color: #fff;
+        }
+
+        #sve-export-modal .sve-emod-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: rgba(167,139,250,0.6);
+            margin-bottom: 10px;
+        }
+
+        /* Format */
+        #sve-export-modal .sve-emod-fmt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+        #sve-export-modal .sve-emod-fmt-btn {
+            background: rgba(55,25,75,0.5);
+            border: 1.5px solid rgba(255,255,255,0.08);
+            color: #999;
+            padding: 16px 8px 13px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.18s;
+        }
+        #sve-export-modal .sve-emod-fmt-btn:hover {
+            background: rgba(168,85,247,0.16);
+            border-color: rgba(168,85,247,0.4);
+            color: #e9d5ff;
+        }
+        #sve-export-modal .sve-emod-fmt-btn.sve-active {
+            background: rgba(168,85,247,0.25);
+            border-color: rgba(168,85,247,0.9);
+            box-shadow: 0 0 18px rgba(168,85,247,0.28);
+            color: #f3e8ff;
+        }
+        #sve-export-modal .sve-emod-fmt-icon { font-size: 24px; line-height: 1; }
+
+        /* Scale */
+        #sve-export-modal .sve-emod-scale-wrap {
+            overflow: hidden;
+            transition: max-height 0.22s ease, opacity 0.22s ease, margin-bottom 0.22s ease;
+            max-height: 200px;
+            opacity: 1;
+            margin-bottom: 22px;
+        }
+        #sve-export-modal .sve-emod-scale-wrap.sve-hidden {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+        #sve-export-modal .sve-emod-scale-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        #sve-export-modal .sve-emod-scale-btn {
+            background: rgba(55,25,75,0.5);
+            border: 1.5px solid rgba(255,255,255,0.08);
+            color: #999;
+            padding: 11px 8px;
+            border-radius: 11px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 800;
+            font-family: inherit;
+            text-align: center;
+            transition: all 0.18s;
+        }
+        #sve-export-modal .sve-emod-scale-btn:hover {
+            background: rgba(168,85,247,0.16);
+            border-color: rgba(168,85,247,0.4);
+            color: #e9d5ff;
+        }
+        #sve-export-modal .sve-emod-scale-btn.sve-active {
+            background: rgba(168,85,247,0.25);
+            border-color: rgba(168,85,247,0.9);
+            box-shadow: 0 0 14px rgba(168,85,247,0.28);
+            color: #f3e8ff;
+        }
+        #sve-export-modal .sve-emod-dimensions {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(167,139,250,0.5);
+            text-align: right;
+            letter-spacing: 0.3px;
+        }
+
+        /* Séparateur */
+        #sve-export-modal .sve-emod-sep {
+            height: 1px;
+            background: rgba(255,255,255,0.07);
+            margin: 20px 0;
+        }
+
+        /* Nom du fichier */
+        #sve-export-modal .sve-emod-filename-wrap { margin-bottom: 24px; }
+        #sve-export-modal .sve-emod-filename-row {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.04);
+            border: 1.5px solid rgba(255,255,255,0.09);
+            border-radius: 11px;
+            overflow: hidden;
+            transition: border-color 0.18s;
+        }
+        #sve-export-modal .sve-emod-filename-row:focus-within {
+            border-color: rgba(168,85,247,0.65);
+        }
+        #sve-export-modal .sve-emod-filename-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 11px 4px 11px 14px;
+        }
+        #sve-export-modal .sve-emod-filename-ext {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(167,139,250,0.65);
+            padding: 11px 14px 11px 2px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Confirm — même style que .sve-btn-export (vert + halo) */
+        #sve-export-modal .sve-emod-confirm {
+            width: 100%;
+            background: #a3e635;
+            border: none;
+            color: #000;
+            padding: 14px;
+            border-radius: 13px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 800;
+            font-family: inherit;
+            letter-spacing: 0.4px;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 20px rgba(163, 230, 53, 0.6);
+        }
+        #sve-export-modal .sve-emod-confirm:hover {
+            background: #a3e635;
+            box-shadow: 0 0 30px rgba(163, 230, 53, 0.9);
+            transform: translateY(-2px);
+        }
+
+        #sve-root .sve-rotation-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        #sve-root #rotationSlider {
+            width: 100%;
+            height: 8px;
+            border-radius: 10px;
+            background: rgba(58, 58, 78, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            outline: none;
+            -webkit-appearance: none;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        #sve-root #rotationSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(163, 230, 53, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        #sve-root #rotationSlider::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 25px rgba(163, 230, 53, 1);
+        }
+
+        #sve-root #rotationSlider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(163, 230, 53, 0.6);
+        }
+
+        #sve-root .sve-rotation-display {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Monaco', 'Menlo', monospace;
+            text-shadow: 0 0 30px rgba(163, 230, 53, 0.5);
+            filter: drop-shadow(0 0 10px rgba(163, 230, 53, 0.5));
+        }
+
+        #sve-root .sve-rotation-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        #sve-root .sve-btn-rotation {
+            background: rgba(58, 58, 78, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        #sve-root .sve-btn-rotation:hover {
+            background: rgba(132, 204, 22, 0.3);
+            border-color: #84cc16;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(132, 204, 22, 0.5);
+        }
+
+        #sve-root .sve-mirror-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        #sve-root .sve-btn-mirror {
+            background: rgba(58, 58, 78, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #fff;
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        #sve-root .sve-btn-mirror:hover {
+            background: rgba(132, 204, 22, 0.3);
+            border-color: #84cc16;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(132, 204, 22, 0.5);
+        }
+
+        #sve-root .sve-btn-mirror.sve-active {
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+            color: #1e1e2e;
+            border-color: #a3e635;
+            box-shadow: 0 0 25px rgba(163, 230, 53, 0.6);
+            font-weight: 700;
+        }
+
+        #sve-root .sve-main-content {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        #sve-root .sve-sidebar {
+            background: rgba(60, 30, 80, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: visible; /* évite de rogner la dernière couleur de la grille */
+        }
+
+        #sve-root .sve-sidebar::before { display: none; }
+
+
+        #sve-root .sve-section-reset {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 50%;
+            transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            aspect-ratio: 1/1;
+        }
+
+        #sve-root .sve-section-reset::before,
+        #sve-root .sve-section-reset::after {
+            display: none !important;
+            content: none !important;
+        }
+
+        #sve-root .sve-section-reset:hover {
+            opacity: 1;
+            color: #a78bfa;
+            transform: rotate(-45deg) scale(1.1);
+            background: transparent;
+            outline: none;
+            box-shadow: none;
+        }
+
+        #sve-root .sve-section-reset:focus,
+        #sve-root .sve-section-reset:focus-visible {
+            outline: none;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        #sve-root .sve-section-reset:active {
+            outline: none;
+            box-shadow: none;
+            background: transparent;
+            transform: rotate(-90deg) scale(0.95);
+        }
+
+        #sve-root .sve-color-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        #sve-root .sve-gradient-block {
+            grid-column: 1 / -1;
+            background: rgba(42, 42, 64, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(132, 204, 22, 0.2);
+        }
+
+        #sve-root .sve-gradient-block:hover {
+            border-color: #84cc16;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(132, 204, 22, 0.3);
+        }
+
+        #sve-root .sve-gradient-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #999999;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        #sve-root .sve-gradient-swatches {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        #sve-root .sve-gradient-mini-swatch-wrapper {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            transition: z-index 0s;
+        }
+        #sve-root .sve-gradient-mini-swatch-wrapper:hover {
+            z-index: 10;
+        }
+
+        #sve-root .sve-gradient-mini-swatch {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            min-height: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        #sve-root .sve-gradient-mini-swatch:hover {
+            transform: scale(1.05);
+            border-color: #84cc16;
+            box-shadow: 0 0 15px rgba(132, 204, 22, 0.5);
+        }
+
+        #sve-root .sve-gradient-delete-btn {
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.7);
+            color: #fff;
+            border: 1.5px solid rgba(239, 68, 68, 0.9);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1;
+            z-index: 100;
+            pointer-events: auto;
+            overflow: hidden;
+        }
+
+        #sve-root .sve-gradient-mini-swatch-wrapper:hover .sve-gradient-delete-btn {
+            display: flex;
+        }
+
+        /* Drag & drop pour réordonner les nuances d'un dégradé */
+        #sve-root .sve-gradient-compact-swatch[draggable="true"],
+        #sve-root .sve-gradient-mini-swatch-wrapper[draggable="true"] { cursor: grab; }
+        #sve-root .sve-gradient-compact-swatch.drag-source,
+        #sve-root .sve-gradient-mini-swatch-wrapper.drag-source { opacity: 0.3; }
+        #sve-root .sve-gradient-compact-swatch.drag-over-left,
+        #sve-root .sve-gradient-mini-swatch-wrapper.drag-over-left {
+            box-shadow: -3px 0 0 0 #a78bfa;
+        }
+        #sve-root .sve-gradient-compact-swatch.drag-over-right,
+        #sve-root .sve-gradient-mini-swatch-wrapper.drag-over-right {
+            box-shadow: 3px 0 0 0 #a78bfa;
+        }
+
+        #sve-root .sve-gradient-delete-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: #f87171;
+            color: #fff;
+            transform: scale(1.15);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+            z-index: 200;
+        }
+
+        #sve-root .sve-gradient-add-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(167, 139, 250, 0.15);
+            color: #a78bfa;
+            border: 1.5px dashed rgba(167, 139, 250, 0.5);
+            font-size: 16px;
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        #sve-root .sve-gradient-add-btn:hover {
+            background: rgba(167, 139, 250, 0.3);
+            border-color: #a78bfa;
+            color: #fff;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+        }
+
+        #sve-root .sve-color-item {
+            position: relative;
+        }
+        #sve-root .sve-color-to-gradient-btn {
+            position: absolute;
+            top: -9px;
+            right: -9px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(167, 139, 250, 0.75);
+            color: #fff;
+            border: 2px solid rgba(167, 139, 250, 0.9);
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1;
+            z-index: 10;
+            overflow: hidden;
+            box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+        }
+        #sve-root .sve-color-item:hover .sve-color-to-gradient-btn {
+            display: flex;
+        }
+        #sve-root .sve-color-to-gradient-btn:hover {
+            background: rgba(167, 139, 250, 1);
+            border-color: #c4b5fd;
+            color: #fff;
+            transform: scale(1.18);
+            box-shadow: 0 0 14px rgba(167, 139, 250, 0.8);
+        }
+
+        #sve-root .sve-gradient-remove-btn {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+            border: 1.5px dashed rgba(239, 68, 68, 0.4);
+            font-size: 18px;
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        #sve-root .sve-gradient-remove-btn:hover {
+            background: rgba(239, 68, 68, 0.25);
+            border-color: #f87171;
+            color: #fff;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+        }
+
+        /* ── Points d'ancrage — carré, couleurs de l'app ── */
+        #sve-root .sve-anchor-point {
+            fill: rgba(15, 15, 25, 0.85);
+            stroke: #a3e635;
+            cursor: move;
+            transition: transform 0.12s ease, fill 0.12s ease, stroke 0.12s ease;
+            transform-box: fill-box;
+            transform-origin: center;
+            filter: drop-shadow(0 0 2px rgba(163, 230, 53, 0.4));
+        }
+        #sve-root .sve-anchor-point:hover {
+            fill: rgba(163, 230, 53, 0.15);
+            stroke: #d9f99d;
+            transform: scale(1.6);
+            filter: drop-shadow(0 0 4px rgba(163, 230, 53, 0.7));
+        }
+        #sve-root .sve-anchor-point.selected {
+            fill: #a3e635;
+            stroke: rgba(255,255,255,0.9);
+            filter: drop-shadow(0 0 5px rgba(163, 230, 53, 0.9));
+        }
+        #sve-root .sve-anchor-point.selected:hover {
+            transform: scale(1.3);
+        }
+        #sve-root .sve-anchor-point.dragging {
+            fill: #f87171;
+            stroke: white;
+            filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.8));
+        }
+
+        /* ── Ligne de tangente ── */
+        #sve-root .sve-control-line {
+            fill: none;
+            pointer-events: none;
+            stroke: rgba(167, 139, 250, 0.6);
+        }
+
+        /* ── Handle Bézier — cercle, violet de l'app ── */
+        #sve-root .sve-control-point {
+            fill: rgba(15, 15, 25, 0.85);
+            stroke: #a78bfa;
+            cursor: move;
+            transition: transform 0.12s ease, fill 0.12s ease;
+            transform-box: fill-box;
+            transform-origin: center;
+            filter: drop-shadow(0 0 2px rgba(167, 139, 250, 0.4));
+        }
+        #sve-root .sve-control-point:hover {
+            fill: rgba(167, 139, 250, 0.2);
+            stroke: #c4b5fd;
+            transform: scale(1.5);
+            filter: drop-shadow(0 0 4px rgba(167, 139, 250, 0.7));
+        }
+        #sve-root .sve-control-point.dragging {
+            fill: #f87171;
+            stroke: white;
+        }
+
+        /* --- MODE ÉDITION --- */
+        #sve-root .sve-btn-edit-mode-wrap {
+            position: relative;
+            display: inline-flex;
+        }
+        #sve-root .sve-btn-edit-mode {
+            background: transparent;
+            color: #a78bfa;
+            border: 2px solid #a78bfa;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.4);
+        }
+        #sve-root .sve-btn-edit-mode-wrap .sve-badge-beta {
+            position: absolute;
+            top: -7px;
+            right: -8px;
+            background: linear-gradient(135deg, #4ade80, #16a34a);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            padding: 2px 7px;
+            border-radius: 5px;
+            transform: rotate(12deg);
+            box-shadow: 0 2px 8px rgba(167, 139, 250, 0.5);
+            pointer-events: none;
+            animation: badgePulse 2.5s ease-in-out infinite;
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+        }
+        #sve-root #editModeBtn:disabled ~ .sve-badge-beta {
+            display: none;
+        }
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 2px 8px rgba(167, 139, 250, 0.5); }
+            50%       { box-shadow: 0 2px 16px rgba(167, 139, 250, 0.9); }
+        }
+        #sve-root .sve-btn-edit-mode:hover:not(:disabled) {
+            background: rgba(167, 139, 250, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.7);
+        }
+        #sve-root .sve-btn-edit-mode.sve-active {
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+            color: #fff;
+            border-color: #a78bfa;
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.8);
+        }
+        #sve-root .sve-btn-edit-mode:disabled {
+            color: rgba(167, 139, 250, 0.3);
+            cursor: not-allowed;
+            opacity: 0.3;
+            border-color: rgba(167, 139, 250, 0.1);
+        }
+        /* Boutons Undo / Redo */
+        #sve-root .sve-btn-undo-icon {
+            background: transparent;
+            color: #a78bfa;
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            font-size: 16px;
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        #sve-root .sve-btn-undo-icon:hover:not(:disabled) {
+            background: rgba(167, 139, 250, 0.1);
+            border-color: #a78bfa;
+            transform: translateY(-1px);
+            box-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
+        }
+        #sve-root .sve-btn-undo-icon:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+        /* Blocage des outils en mode édition */
+        #sve-root.sve-edit-active .sve-section-tool {
+            opacity: 0.35;
+            pointer-events: none;
+            user-select: none;
+            position: relative;
+        }
+        /* L'opacity:0.35 + pointer-events:none suffisent à indiquer le mode désactivé */
+
+        #edit-overlay-svg {
+            position: absolute;
+            pointer-events: all;
+            z-index: 10;
+            overflow: visible;
+            cursor: default;
+        }
+
+        /* Header opaque en mode édition pour bien voir qu'on est en mode édition */
+        #sve-root.sve-edit-active .sve-header {
+            background: rgba(60, 20, 90, 0.97);
+            border-color: #a78bfa;
+            box-shadow:
+                0 0 0 1px #a78bfa,
+                0 0 30px rgba(167, 139, 250, 0.35),
+                0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+        #edit-overlay-svg .sve-control-line {
+            pointer-events: none;
+        }
+
+        /* Zoom / Pan */
+        #sve-root .sve-canvas-area.sve-zoom-active {
+            cursor: grab;
+        }
+        #sve-root .sve-canvas-area.sve-zoom-active.sve-panning {
+            cursor: grabbing;
+        }
+
+
+        #sve-root .sve-color-item {
+            background: rgba(42, 42, 64, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(132, 204, 22, 0.2);
+        }
+
+        #sve-root .sve-color-item:hover {
+            border-color: #84cc16;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(132, 204, 22, 0.4);
+        }
+
+        #sve-root .sve-color-swatch {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        #sve-root .sve-color-swatch-checker {
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.12) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.12) 75%);
+            background-size: 12px 12px;
+            background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+            background-color: rgba(0,0,0,0.35);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        #sve-root .sve-color-swatch-checker.sve-visible {
+            opacity: 1;
+        }
+        #sve-root .sve-color-swatch-color {
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+        }
+
+        #sve-root .sve-color-code {
+            font-size: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: #999999;
+            text-align: center;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        #sve-root .sve-canvas-area {
+            background: rgba(30, 30, 35, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 24px;
+            padding: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            transition: all 0.3s ease;
+            position: relative;
+            background-image:
+                radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        #sve-root .sve-canvas-area::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        #sve-root .sve-canvas-area::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        #sve-root .sve-canvas-area.sve-light-bg {
+            background: rgba(220, 220, 225, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            background-image:
+                radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #333;
+        }
+
+        #sve-root .sve-empty-state {
+            text-align: center;
+            color: #84cc16;
+            display: block;
+            background: rgba(132, 204, 22, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 80px 40px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px dashed rgba(132, 204, 22, 0.4);
+        }
+
+        #sve-root .sve-empty-state:hover {
+            background: rgba(132, 204, 22, 0.08);
+            border-color: #84cc16;
+            border-style: solid;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(132, 204, 22, 0.4);
+        }
+
+        #sve-root .sve-empty-state.sve-hidden {
+            display: none;
+        }
+
+        #sve-root .sve-empty-state.sve-drag-over {
+            background: rgba(132, 204, 22, 0.14);
+            border-color: #84cc16;
+            border-style: solid;
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 50px rgba(132, 204, 22, 0.5);
+        }
+        #sve-root .sve-empty-state.sve-drag-over svg {
+            opacity: 0.45;
+        }
+
+        #sve-root .sve-empty-state svg {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            opacity: 0.15;
+            color: #FFFFFF;
+        }
+
+        #sve-root .sve-empty-state p {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #84cc16;
+        }
+
+        #sve-root .sve-empty-state small {
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+
+        #sve-root #svgDisplay {
+            display: none;
+        }
+
+        #sve-root #svgDisplay.sve-active {
+            display: flex;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #sve-root #svgDisplay svg {
+            max-width: calc(100% - 200px);
+            max-height: calc(100% - 200px);
+            width: auto;
+            height: auto;
+        }
+
+        /* Highlight : assombrir les formes non concernées */
+        #sve-root #svgDisplay .sve-dimmed {
+            transition: filter 0.2s ease;
+            filter: brightness(0.25);
+        }
+
+        /* Highlight : mettre en avant l'élément palette correspondant */
+        #sve-root .sve-color-item.sve-palette-highlighted {
+            border-color: #a3e635;
+            box-shadow: 0 0 0 2px rgba(163, 230, 53, 0.5), 0 4px 20px rgba(163, 230, 53, 0.3);
+            transform: translateY(-3px);
+        }
+        #sve-root .sve-gradient-block.sve-palette-highlighted {
+            border-color: #a3e635;
+            box-shadow: 0 0 0 2px rgba(163, 230, 53, 0.5), 0 4px 20px rgba(163, 230, 53, 0.3);
+        }
+        #sve-root .sve-gradient-compact-row.sve-palette-highlighted {
+            background: rgba(163, 230, 53, 0.12);
+            outline: 1px solid rgba(163, 230, 53, 0.4);
+            border-radius: 8px;
+        }
+
+        /* Highlight : overlay sombre sur le canvas, indépendant du light/dark mode */
+        #sve-root #canvas-highlight-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.18);
+            border-radius: inherit;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 2;
+        }
+        #sve-root #canvas-highlight-overlay.sve-visible {
+            opacity: 1;
+        }
+
+        /* Tooltip custom */
+        #sve-tooltip {
+            position: fixed;
+            z-index: 99999;
+            pointer-events: none;
+            background: rgba(14, 10, 22, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #e2e2e8;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(163, 230, 53, 0.25);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+            opacity: 0;
+            transition: opacity 0.1s ease;
+            white-space: nowrap;
+            max-width: 260px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #sve-tooltip.sve-visible {
+            opacity: 1;
+        }
+        #sve-tooltip .sve-tooltip-color-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        #sve-root input[type="file"] {
+            display: none;
+        }
+
+        #sve-root input[type="color"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        #sve-root .sve-no-colors {
+            grid-column: 1 / -1;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 12px 0;
+            font-size: 13px;
+            font-weight: 500;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        #sve-root .sve-section-tool {
+            padding: 18px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        #sve-root .sve-section-tool:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+        #sve-root .sve-section-tool:last-child {
+            padding-bottom: 0;
+        }
+
+        #sve-root .sve-h2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0;
+        }
+
+        /* Custom Color Picker Styles */
+        #sve-color-picker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+            width: 260px;
+            background: rgba(24, 24, 34, 0.97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+            padding: 14px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            user-select: none;
+        }
+
+        #sve-color-picker.sve-visible {
+            display: block;
+            opacity: 1;
+        }
+
+        .sve-gradient-mini-swatch-wrapper:hover .sve-gradient-delete-btn {
+            opacity: 1;
+        }
+
+        /* --- MODE COMPACT pour > 3 gradients --- */
+        #sve-root .sve-gradients-compact-container {
+            grid-column: 1 / -1;
+            background: rgba(42, 42, 64, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid rgba(132, 204, 22, 0.2);
+            max-height: 320px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        #sve-root .sve-gradients-compact-container::-webkit-scrollbar {
+            width: 5px;
+        }
+        #sve-root .sve-gradients-compact-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #sve-root .sve-gradients-compact-container::-webkit-scrollbar-thumb {
+            background: rgba(132, 204, 22, 0.3);
+            border-radius: 3px;
+        }
+
+        #sve-root .sve-gradients-compact-title {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #999999;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        #sve-root .sve-gradient-compact-row {
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 4px 6px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            min-height: 32px;
+        }
+
+        #sve-root .sve-gradient-compact-row:hover {
+            background: rgba(132, 204, 22, 0.08);
+        }
+
+        #sve-root .sve-gradient-compact-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+            min-width: 28px;
+            flex-shrink: 0;
+            padding-top: 3px;
+        }
+
+        #sve-root .sve-gradient-compact-swatches {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+            min-width: 0;
+            flex-wrap: wrap;
+        }
+
+        #sve-root .sve-gradient-compact-swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Damier + overlay partagés (mini swatch gradient + compact swatch) */
+        #sve-root .sve-swatch-checker {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.12) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.12) 75%);
+            background-size: 8px 8px;
+            background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+            background-color: rgba(0,0,0,0.35);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+        .sve-swatch-checker.sve-visible {
+            opacity: 1;
+        }
+        #sve-root .sve-swatch-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        #sve-root .sve-gradient-compact-swatch:hover {
+            transform: scale(1.2);
+            border-color: #84cc16;
+            box-shadow: 0 0 10px rgba(132, 204, 22, 0.5);
+            z-index: 10;
+        }
+
+        #sve-root .sve-gradient-compact-smooth {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            padding: 0;
+            margin-left: auto;
+        }
+        #sve-root .sve-gradient-compact-smooth:hover {
+            color: #a3e635;
+            background: rgba(132, 204, 22, 0.15);
+            transform: scale(1.15);
+        }
+        #sve-root .sve-gradient-compact-smooth.sve-active {
+            color: #1e1e2e;
+            background: linear-gradient(135deg, #a3e635 0%, #84cc16 100%);
+            box-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+        }
+
+
+        /* Zone SV (saturation/luminosité 2D) */
+        .sve-picker-sv {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            background: red;
+            cursor: crosshair;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .sve-picker-sv-white {
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, #fff, transparent);
+        }
+        .sve-picker-sv-black {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, #000, transparent);
+        }
+        .sve-picker-cursor {
+            position: absolute;
+            width: 12px; height: 12px;
+            border: 2px solid white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 3px rgba(0,0,0,0.6), inset 0 0 1px rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+
+        /* Labels des sliders */
+        .sve-picker-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .sve-picker-slider-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.45);
+            width: 14px;
+            text-align: center;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+        }
+        .sve-picker-slider-value {
+            font-size: 10px;
+            font-family: monospace;
+            color: rgba(255,255,255,0.55);
+            width: 32px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* Barre de teinte (Hue) */
+        .sve-picker-hue {
+            flex: 1;
+            height: 14px;
+            position: relative;
+            background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* Barre de saturation */
+        .sve-picker-saturation-bar {
+            flex: 1;
+            height: 14px;
+            position: relative;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* Barre d'opacité avec damier */
+        .sve-picker-opacity-bar {
+            flex: 1;
+            height: 14px;
+            position: relative;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+        .sve-picker-opacity-checkerboard {
+            position: absolute; inset: 0;
+            border-radius: 7px;
+            overflow: hidden;
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.12) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.12) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.12) 75%);
+            background-size: 8px 8px;
+            background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .sve-picker-opacity-gradient {
+            position: absolute; inset: 0;
+            border-radius: 7px;
+            overflow: hidden;
+        }
+
+        /* Curseur commun pour hue / saturation / opacity */
+        .sve-picker-slider-cursor {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 16px; height: 16px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        /* Contrôles bas : preview + inputs alignés en hauteur */
+        .sve-picker-controls {
+            display: flex;
+            align-items: stretch;
+            gap: 6px;
+            margin-top: 6px;
+            height: 36px;
+        }
+        .sve-picker-preview-wrap {
+            position: relative;
+            width: 36px;
+            flex-shrink: 0;
+        }
+        .sve-picker-preview-checker {
+            position: absolute; inset: 0;
+            border-radius: 50%;
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.15) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.15) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.15) 75%);
+            background-size: 6px 6px;
+            background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .sve-picker-preview {
+            position: absolute; inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+
+        .sve-picker-inputs {
+            display: flex;
+            flex: 1;
+            gap: 5px;
+            min-width: 0;
+        }
+        .sve-picker-input {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 0 5px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        .sve-picker-input:focus {
+            outline: none;
+            border-color: #84cc16;
+            background: rgba(0,0,0,0.4);
+        }
+        .sve-picker-input-group {
+            display: flex;
+            min-width: 0;
+        }
+        .sve-picker-input-group.sve-hex-group { flex: 3; }
+        .sve-picker-input-group.sve-alpha-group { flex: 2; }
