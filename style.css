@@ -5,7 +5,7 @@
         }
 
         #sve-root {
-            background: #000000;
+            background: #fff;
 
             min-height: 100vh;
             padding: 20px;
@@ -1720,6 +1720,7 @@
         }
         .sve-picker-input-group.sve-hex-group { flex: 3; }
         .sve-picker-input-group.sve-alpha-group { flex: 2; }
+
 
 
 
