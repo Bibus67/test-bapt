@@ -1,3 +1,5 @@
+(function () {
+'use strict';
             // ─── i18n ────────────────────────────────────────────────────────
             const TRANSLATIONS = {
                 fr: {
@@ -3186,4 +3188,20 @@
                     }
                 }).join(' ');
             }
+
+            // Exposer les fonctions appelées depuis le HTML (onclick=) au scope global
+            window.toggleLanguage  = toggleLanguage;
+            window.undoEdit        = undoEdit;
+            window.redoEdit        = redoEdit;
+            window.toggleEditMode  = toggleEditMode;
+            window.openExportModal = openExportModal;
+            window.closeExportModal= closeExportModal;
+            window.confirmExport   = confirmExport;
+            window.resetColors     = resetColors;
+            window.resetRotation   = resetRotation;
+            window.rotateImage     = rotateImage;
+            window.resetMirrors    = resetMirrors;
+            window.toggleMirror    = toggleMirror;
+
+})();
 
