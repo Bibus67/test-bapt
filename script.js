@@ -1,3 +1,128 @@
+            // ─── i18n ────────────────────────────────────────────────────────
+            const TRANSLATIONS = {
+                fr: {
+                    'header.title':          'Éditeur de couleurs SVG',
+                    'header.undo':           'Annuler (Ctrl+Z)',
+                    'header.redo':           'Rétablir (Ctrl+Y)',
+                    'header.edit_mode':      '✏️ Édition',
+                    'header.import':         'Importer SVG',
+                    'header.export':         'Exporter ↗',
+                    'header.lang_title':     'Switch to English',
+                    'section.colors':        'Couleurs détectées',
+                    'section.reset_colors':  'Réinitialiser les couleurs',
+                    'section.rotation':      "Rotation de l'image",
+                    'section.reset_rotation':'Réinitialiser la rotation',
+                    'section.mirror':        'Miroir',
+                    'section.reset_mirrors': 'Réinitialiser les miroirs',
+                    'rotation.minus90':      '↶ -90°',
+                    'rotation.plus90':       '↷ +90°',
+                    'mirror.horizontal':     '⇆ Miroir horizontal',
+                    'mirror.vertical':       '⇅ Miroir vertical',
+                    'empty.title':           'Aucun fichier SVG chargé',
+                    'empty.subtitle':        'Cliquez ici ou sur "Importer SVG" pour commencer',
+                    'msg.loading':           'Chargement...',
+                    'msg.no_colors':         'Aucune couleur détectée',
+                    'gradient.title':        'DÉGRADÉS',
+                    'gradient.add_shade':    'Ajouter une nuance',
+                    'gradient.delete_shade': 'Supprimer cette nuance',
+                    'gradient.smooth':       'Lisser ce dégradé',
+                    'gradient.to_solid':     'Convertir en couleur unie',
+                    'gradient.to_gradient':  'Convertir en dégradé',
+                    'export.title':          'Exporter',
+                    'export.format':         'Format',
+                    'export.resolution':     'Résolution',
+                    'export.filename':       'Nom du fichier',
+                    'export.download':       '↓ Télécharger',
+                    'alert.file_read_error': 'Erreur lors de la lecture du fichier',
+                    'alert.no_valid_svg':    'Le fichier ne contient pas de SVG valide',
+                    'alert.no_svg_loaded':   'Aucun SVG chargé',
+                    'alert.blob_error':      'Erreur creation blob image',
+                    'alert.canvas_error':    'Erreur dessin canvas',
+                    'alert.svg_load_error':  'Erreur chargement SVG pour export',
+                    'alert.export_error':    'Erreur export',
+                },
+                en: {
+                    'header.title':          'SVG Color Editor',
+                    'header.undo':           'Undo (Ctrl+Z)',
+                    'header.redo':           'Redo (Ctrl+Y)',
+                    'header.edit_mode':      '✏️ Edit',
+                    'header.import':         'Import SVG',
+                    'header.export':         'Export ↗',
+                    'header.lang_title':     'Passer en français',
+                    'section.colors':        'Detected colors',
+                    'section.reset_colors':  'Reset colors',
+                    'section.rotation':      'Image rotation',
+                    'section.reset_rotation':'Reset rotation',
+                    'section.mirror':        'Mirror',
+                    'section.reset_mirrors': 'Reset mirrors',
+                    'rotation.minus90':      '↶ -90°',
+                    'rotation.plus90':       '↷ +90°',
+                    'mirror.horizontal':     '⇆ Horizontal mirror',
+                    'mirror.vertical':       '⇅ Vertical mirror',
+                    'empty.title':           'No SVG file loaded',
+                    'empty.subtitle':        'Click here or on "Import SVG" to get started',
+                    'msg.loading':           'Loading...',
+                    'msg.no_colors':         'No colors detected',
+                    'gradient.title':        'GRADIENTS',
+                    'gradient.add_shade':    'Add a shade',
+                    'gradient.delete_shade': 'Delete this shade',
+                    'gradient.smooth':       'Smooth this gradient',
+                    'gradient.to_solid':     'Convert to solid color',
+                    'gradient.to_gradient':  'Convert to gradient',
+                    'export.title':          'Export',
+                    'export.format':         'Format',
+                    'export.resolution':     'Resolution',
+                    'export.filename':       'File name',
+                    'export.download':       '↓ Download',
+                    'alert.file_read_error': 'Error reading file',
+                    'alert.no_valid_svg':    'The file does not contain a valid SVG',
+                    'alert.no_svg_loaded':   'No SVG loaded',
+                    'alert.blob_error':      'Error creating image blob',
+                    'alert.canvas_error':    'Canvas draw error',
+                    'alert.svg_load_error':  'Error loading SVG for export',
+                    'alert.export_error':    'Export error',
+                }
+            };
+            let currentLang = 'fr';
+            const t = key => (TRANSLATIONS[currentLang]?.[key] ?? TRANSLATIONS.fr[key]) ?? key;
+
+            function applyTranslations() {
+                const root = document.getElementById('sve-root');
+                if (!root) return;
+                // Éléments avec data-i18n (textContent)
+                root.querySelectorAll('[data-i18n]').forEach(el => {
+                    el.textContent = t(el.dataset.i18n);
+                });
+                // Éléments avec data-i18n-title (attribut title)
+                root.querySelectorAll('[data-i18n-title]').forEach(el => {
+                    el.title = t(el.dataset.i18nTitle);
+                });
+                // Éléments avec data-i18n-tooltip (attribut data-tooltip)
+                root.querySelectorAll('[data-i18n-tooltip]').forEach(el => {
+                    el.dataset.tooltip = t(el.dataset.i18nTooltip);
+                });
+                // Toggle langue : déplacer le thumb et mettre à jour les classes
+                const langToggle = document.getElementById('langToggle');
+                if (langToggle) {
+                    const isFr = currentLang === 'fr';
+                    langToggle.classList.toggle('lang-fr', isFr);
+                    langToggle.classList.toggle('lang-en', !isFr);
+                    langToggle.title = t('header.lang_title');
+                }
+                // Rebuild la palette dynamique (tooltips, labels, etc.)
+                scheduleDisplayColors();
+                // Appliquer les traductions sur le modal export (hors #sve-root)
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    el.textContent = t(el.dataset.i18n);
+                });
+            }
+
+            function toggleLanguage() {
+                currentLang = currentLang === 'fr' ? 'en' : 'fr';
+                applyTranslations();
+            }
+            // ─────────────────────────────────────────────────────────────────
+
             let currentSVG = null;
             let originalSVGContent = ''; // Pour le reset
             let currentRotation = 0;
@@ -168,7 +293,7 @@
                 if (editModeActive) exitEditMode();
 
                 // Vider complètement la palette
-                colorPalette.innerHTML = '<div class="sve-no-colors">Chargement...</div>';
+                colorPalette.innerHTML = `<div class="sve-no-colors">${t('msg.loading')}</div>`;
 
                 // Recharger le SVG original
                 svgDisplay.innerHTML = originalSVGContent;
@@ -212,7 +337,7 @@
                 if (!file) return;
                 const reader = new FileReader();
                 reader.onload = function(e) { loadSVG(e.target.result); };
-                reader.onerror = function() { alert('Erreur lors de la lecture du fichier'); };
+                reader.onerror = function() { alert(t('alert.file_read_error')); };
                 reader.readAsText(file);
             }
 
@@ -240,7 +365,7 @@
                     currentSVG = svgDisplay.querySelector('svg');
                     if (!currentSVG) {
                         console.error('Aucun élément SVG trouvé dans le fichier');
-                        alert('Le fichier ne contient pas de SVG valide');
+                        alert(t('alert.no_valid_svg'));
                         return;
                     }
                     if (!currentSVG.hasAttribute('viewBox') && !currentSVG.hasAttribute('width')) {
@@ -277,7 +402,7 @@
                 const prevByGradientId = new Map(
                     gradientGroups
                         .filter(g => g.gradientElement.id)
-                        .map(g => [g.gradientElement.id, { smoothed: g.smoothed, _originalStops: g._originalStops || null }])
+                        .map(g => [g.gradientElement.id, { smoothed: g.smoothed, _originalStops: g._originalStops || null, _originalStopGroups: g._originalStopGroups || null }])
                 );
 
                 mainColorGroups = [];
@@ -404,8 +529,9 @@
                                 gradientElement: gradient,
                                 label: 'Dégradé ' + gradientCounter,
                                 stopGroups: stopGroups,
-                                smoothed:       prev.smoothed       || false,
-                                _originalStops: prev._originalStops || null,
+                                smoothed:            prev.smoothed            || false,
+                                _originalStops:      prev._originalStops      || null,
+                                _originalStopGroups: prev._originalStopGroups || null,
                             });
                         }
                     });
@@ -806,9 +932,13 @@
 
             function displayColors(mainColorGroups, gradientGroups) {
                 if (mainColorGroups.length === 0 && gradientGroups.length === 0) {
-                    colorPalette.innerHTML = '<div class="sve-no-colors">Aucune couleur détectée</div>';
+                    colorPalette.innerHTML = `<div class="sve-no-colors">${t('msg.no_colors')}</div>`;
                     return;
                 }
+                // Mémoriser le scroll du conteneur compact avant le rebuild pour le restaurer après
+                const oldCompact = colorPalette.querySelector('.sve-gradients-compact-container');
+                const savedCompactScroll = oldCompact ? oldCompact.scrollTop : 0;
+
                 colorPalette.innerHTML = '';
                 paletteMap = new Map(); // Réinitialiser la map à chaque rebuild
 
@@ -875,7 +1005,7 @@
                     const toGradBtn = document.createElement('button');
                     toGradBtn.className = 'sve-color-to-gradient-btn';
                     toGradBtn.innerHTML = '◑';
-                    Tooltip.attach(toGradBtn, 'Convertir en dégradé');
+                    Tooltip.attach(toGradBtn, t('gradient.to_gradient'));
                     toGradBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         Tooltip.hide();
@@ -885,16 +1015,16 @@
                     colorPalette.appendChild(colorItem);
                 });
 
-                // GRADIENT COLORS — mode compact si > 3 gradients, sinon un encart par gradient
-                const isCompact = gradientGroups.length > 3;
+                // GRADIENT COLORS — toujours en mode compact (liste)
+                const isCompact = gradientGroups.length > 0;
 
-                if (isCompact && gradientGroups.length > 0) {
+                if (isCompact) {
                     // --- MODE COMPACT : un seul conteneur scrollable avec une ligne par gradient ---
                     const container = document.createElement('div');
                     container.className = 'sve-gradients-compact-container';
                     const title = document.createElement('div');
                     title.className = 'sve-gradients-compact-title';
-                    title.textContent = `DÉGRADÉS (${gradientGroups.length})`;
+                    title.textContent = `${t('gradient.title')} (${gradientGroups.length})`;
                     container.appendChild(title);
 
                     gradientGroups.forEach((gradientEntry, gradientIndex) => {
@@ -950,22 +1080,36 @@
                                 }, e.clientX, e.clientY);
                             });
 
-                            attachSwatchDragHandlers(swatch, gradientIndex, displayIdx, swatches);
-                            swatches.appendChild(swatch);
+                            // Wrapper (comme miniSwatchWrapper en mode normal) pour le bouton ×
+                            const swatchWrapper = document.createElement('div');
+                            swatchWrapper.className = 'sve-gradient-compact-swatch-wrapper';
+                            const deleteBtn = document.createElement('button');
+                            deleteBtn.className = 'sve-gradient-delete-btn';
+                            deleteBtn.innerHTML = '×';
+                            Tooltip.attach(deleteBtn, t('gradient.delete_shade'));
+                            deleteBtn.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                deleteGradientColorGroup(gradientIndex, stopGroupIndex);
+                            });
+                            swatchWrapper.appendChild(swatch);
+                            swatchWrapper.appendChild(deleteBtn);
+
+                            attachSwatchDragHandlers(swatchWrapper, gradientIndex, displayIdx, swatches);
+                            swatches.appendChild(swatchWrapper);
                         });
 
                         // Bouton + pour ajouter une nuance
                         const addBtn = document.createElement('button');
                         addBtn.className = 'sve-gradient-add-btn';
                         addBtn.innerHTML = '+';
-                        Tooltip.attach(addBtn, 'Ajouter une nuance');
+                        Tooltip.attach(addBtn, t('gradient.add_shade'));
                         addBtn.addEventListener('click', (e) => { e.stopPropagation(); addGradientColorGroup(gradientIndex); });
 
                         // Bouton lisser (étoile) à droite
                         const smoothBtn = document.createElement('button');
                         smoothBtn.className = 'sve-gradient-compact-smooth' + (gradientEntry.smoothed ? ' sve-active' : '');
                         smoothBtn.innerHTML = '✦';
-                        Tooltip.attach(smoothBtn, 'Lisser ce dégradé');
+                        Tooltip.attach(smoothBtn, t('gradient.smooth'));
                         smoothBtn.addEventListener('click', (e) => {
                             e.stopPropagation();
                             const nowActive = !gradientEntry.smoothed;
@@ -978,14 +1122,18 @@
                         const removeGradBtn = document.createElement('button');
                         removeGradBtn.className = 'sve-gradient-remove-btn';
                         removeGradBtn.innerHTML = '−';
-                        Tooltip.attach(removeGradBtn, 'Convertir en couleur unie');
+                        Tooltip.attach(removeGradBtn, t('gradient.to_solid'));
                         removeGradBtn.addEventListener('click', (e) => { e.stopPropagation(); Tooltip.hide(); convertGradientToMainColor(gradientIndex); });
+
+                        const actionsGroup = document.createElement('div');
+                        actionsGroup.className = 'sve-gradient-compact-actions';
+                        actionsGroup.appendChild(addBtn);
+                        actionsGroup.appendChild(removeGradBtn);
+                        actionsGroup.appendChild(smoothBtn);
 
                         row.appendChild(label);
                         row.appendChild(swatches);
-                        row.appendChild(addBtn);
-                        row.appendChild(removeGradBtn);
-                        row.appendChild(smoothBtn);
+                        row.appendChild(actionsGroup);
                         container.appendChild(row);
                     });
 
@@ -1011,7 +1159,7 @@
                         const smoothBtn = document.createElement('button');
                         smoothBtn.className = 'sve-gradient-compact-smooth' + (gradientEntry.smoothed ? ' sve-active' : '');
                         smoothBtn.innerHTML = '✦';
-                        Tooltip.attach(smoothBtn, 'Lisser ce dégradé');
+                        Tooltip.attach(smoothBtn, t('gradient.smooth'));
                         smoothBtn.addEventListener('click', (e) => {
                             e.stopPropagation();
                             const nowActive = !gradientEntry.smoothed;
@@ -1023,7 +1171,7 @@
                         const removeGradBtnN = document.createElement('button');
                         removeGradBtnN.className = 'sve-gradient-remove-btn';
                         removeGradBtnN.innerHTML = '−';
-                        Tooltip.attach(removeGradBtnN, 'Convertir en couleur unie');
+                        Tooltip.attach(removeGradBtnN, t('gradient.to_solid'));
                         removeGradBtnN.addEventListener('click', (e) => { e.stopPropagation(); Tooltip.hide(); convertGradientToMainColor(gradientIndex); });
 
                         const headerBtns = document.createElement('div');
@@ -1081,7 +1229,7 @@
                             const deleteBtn = document.createElement('button');
                             deleteBtn.className = 'sve-gradient-delete-btn';
                             deleteBtn.innerHTML = '×';
-                            Tooltip.attach(deleteBtn, 'Supprimer cette nuance');
+                            Tooltip.attach(deleteBtn, t('gradient.delete_shade'));
                             deleteBtn.addEventListener('click', (e) => {
                                 e.stopPropagation();
                                 deleteGradientColorGroup(gradientIndex, stopGroupIndex);
@@ -1096,7 +1244,7 @@
                         const addBtnN = document.createElement('button');
                         addBtnN.className = 'sve-gradient-add-btn';
                         addBtnN.innerHTML = '+';
-                        Tooltip.attach(addBtnN, 'Ajouter une nuance');
+                        Tooltip.attach(addBtnN, t('gradient.add_shade'));
                         addBtnN.addEventListener('click', (e) => { e.stopPropagation(); addGradientColorGroup(gradientIndex); });
                         gradientSwatches.appendChild(addBtnN);
 
@@ -1108,6 +1256,12 @@
 
                 // Attacher les listeners hover sur les formes SVG après rebuild de la palette
                 attachShapeHoverListeners();
+
+                // Restaurer la position de scroll du conteneur compact (évite le saut en haut)
+                if (savedCompactScroll > 0) {
+                    const newCompact = colorPalette.querySelector('.sve-gradients-compact-container');
+                    if (newCompact) newCompact.scrollTop = savedCompactScroll;
+                }
             }
 
             // --- NEW DIRECT UPDATE FUNCTIONS ---
@@ -1140,6 +1294,34 @@
                 // Créer un id unique pour le gradient
                 const gradId = 'sve-grad-' + Date.now();
 
+                // Calculer la bounding box totale de TOUTES les formes du groupe
+                // pour que le dégradé s'étende sur l'ensemble, pas sur chaque forme séparément.
+                let bbMinX = Infinity, bbMinY = Infinity, bbMaxX = -Infinity, bbMaxY = -Infinity;
+                group.refs.forEach(({ element }) => {
+                    try {
+                        const bb = element.getBBox();
+                        if (bb.width > 0 || bb.height > 0) {
+                            bbMinX = Math.min(bbMinX, bb.x);
+                            bbMinY = Math.min(bbMinY, bb.y);
+                            bbMaxX = Math.max(bbMaxX, bb.x + bb.width);
+                            bbMaxY = Math.max(bbMaxY, bb.y + bb.height);
+                        }
+                    } catch (_) {}
+                });
+                // Fallback si getBBox échoue (éléments non rendus, etc.)
+                if (!isFinite(bbMinX)) {
+                    const vb = currentSVG.getAttribute('viewBox');
+                    if (vb) {
+                        const [vx, vy, vw, vh] = vb.trim().split(/[\s,]+/).map(parseFloat);
+                        bbMinX = vx; bbMinY = vy; bbMaxX = vx + vw; bbMaxY = vy + vh;
+                    } else {
+                        bbMinX = 0; bbMinY = 0;
+                        bbMaxX = parseFloat(currentSVG.getAttribute('width') || '100');
+                        bbMaxY = parseFloat(currentSVG.getAttribute('height') || '100');
+                    }
+                }
+                const bbMidY = bbMinY + (bbMaxY - bbMinY) / 2;
+
                 // Créer le linearGradient dans le <defs>
                 let defs = currentSVG.querySelector('defs');
                 if (!defs) {
@@ -1148,8 +1330,11 @@
                 }
                 const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
                 grad.setAttribute('id', gradId);
-                grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
-                grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '0%');
+                // userSpaceOnUse : les coordonnées sont dans le repère SVG global
+                // → le dégradé s'étend sur la bbox de TOUTES les formes, pas de chacune
+                grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+                grad.setAttribute('x1', bbMinX); grad.setAttribute('y1', bbMidY);
+                grad.setAttribute('x2', bbMaxX); grad.setAttribute('y2', bbMidY);
                 const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
                 stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', color);
                 const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
@@ -1278,29 +1463,53 @@
 
                 if (detectedColors.length === 0) return;
 
-                // Sauvegarder les couleurs-clés actuelles pour permettre de "dé-lisser" ensuite.
-                // On les prend depuis stopGroups (source de vérité), pas depuis le DOM brut.
-                const n0 = detectedColors.length;
-                gradientEntry._originalStops = detectedColors.map((color, i) => ({
-                    offset:  n0 === 1 ? '0%' : (i / (n0 - 1) * 100).toFixed(2) + '%',
-                    color,
-                    opacity: null,
-                    style:   null,
+                // Sauvegarder les vrais stops DOM (offsets réels) pour restaurer l'état visuel exact.
+                const allDomStops = Array.from(gradient.querySelectorAll('stop'));
+                gradientEntry._originalStops = allDomStops.map(stop => {
+                    let color = stop.getAttribute('stop-color') || '';
+                    if (!color) {
+                        const m = (stop.getAttribute('style') || '').match(/stop-color:\s*([^;]+)/);
+                        if (m) color = m[1].trim();
+                    }
+                    const opacity = stop.getAttribute('stop-opacity');
+                    return {
+                        offset:  stop.getAttribute('offset') || '0%',
+                        color:   color || '#000000',
+                        opacity: opacity !== null && opacity !== undefined ? parseFloat(opacity) : null,
+                        style:   null,
+                    };
+                });
+                // Sauvegarder les stopGroups (palette) avec les indices dans allDomStops.
+                // Permet de restaurer EXACTEMENT la même palette après dé-lissage,
+                // sans relancer la détection DP (qui pourrait trouver des couleurs en plus).
+                gradientEntry._originalStopGroups = gradientEntry.stopGroups.map(sg => ({
+                    color: sg.color,
+                    stopIndices: sg.stops.map(s => allDomStops.indexOf(s)).filter(idx => idx >= 0),
                 }));
 
-                // Supprimer tous les stops existants et recréer uniformément
+                // Supprimer tous les stops existants et recréer uniformément (1 stop par couleur-clé)
                 gradient.querySelectorAll('stop').forEach(s => s.remove());
                 const n = detectedColors.length;
-                detectedColors.forEach((color, i) => {
+                const newStops = detectedColors.map((color, i) => {
                     const stop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
                     const offset = n === 1 ? 0 : Math.round((i / (n - 1)) * 10000) / 100;
                     stop.setAttribute('offset', `${offset}%`);
                     stop.setAttribute('stop-color', color);
                     gradient.appendChild(stop);
+                    return stop;
                 });
 
+                // Mettre à jour stopGroups pour correspondre exactement aux stops lissés,
+                // sans relancer la détection DP (qui pourrait fusionner des couleurs similaires).
+                gradientEntry.stopGroups = detectedColors.map((color, i) => ({
+                    color: color,
+                    stops: [newStops[i]],
+                }));
+
                 gradientEntry.smoothed = true;
-                setTimeout(() => { detectColors(); }, 50);
+                const _gColors = gradientGroups.flatMap(g => g.stopGroups.map(sg => sg.color));
+                adaptBackgroundColor([...lastDetectedMainColors, ..._gColors]);
+                scheduleDisplayColors();
             }
 
             function unsmoothedSingleGradient(gradientIndex) {
@@ -1312,9 +1521,8 @@
                 gradient.querySelectorAll('stop').forEach(s => s.remove());
 
                 if (gradientEntry._originalStops && gradientEntry._originalStops.length > 0) {
-                    // Restaurer les stops originaux sauvegardés au moment du lissage
-                    // (inclut tous les stops intermédiaires, pas seulement les clés détectées)
-                    gradientEntry._originalStops.forEach(savedStop => {
+                    // Restaurer les stops DOM avec leurs offsets originaux (pas de redistributeStopOffsets)
+                    const newStopEls = gradientEntry._originalStops.map(savedStop => {
                         const stop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
                         stop.setAttribute('stop-color', savedStop.color);
                         if (savedStop.opacity !== null && savedStop.opacity !== undefined) {
@@ -1322,8 +1530,16 @@
                         }
                         if (savedStop.offset) stop.setAttribute('offset', savedStop.offset);
                         gradient.appendChild(stop);
+                        return stop;
                     });
-                    redistributeStopOffsets(gradient);
+
+                    // Restaurer stopGroups directement depuis le snapshot — sans relancer la détection DP
+                    if (gradientEntry._originalStopGroups && gradientEntry._originalStopGroups.length > 0) {
+                        gradientEntry.stopGroups = gradientEntry._originalStopGroups.map(savedSg => ({
+                            color: savedSg.color,
+                            stops: savedSg.stopIndices.map(idx => newStopEls[idx]).filter(Boolean),
+                        }));
+                    }
                 } else {
                     // Fallback si _originalStops n'existe pas
                     gradientEntry.stopGroups.forEach(group => {
@@ -1336,8 +1552,13 @@
                 }
 
                 gradientEntry._originalStops = null;
+                gradientEntry._originalStopGroups = null;
                 gradientEntry.smoothed = false;
-                setTimeout(() => { detectColors(); }, 50);
+
+                // Rafraîchir la palette sans relancer la détection DP (évite l'apparition de couleurs fantômes)
+                const _gColors = gradientGroups.flatMap(g => g.stopGroups.map(sg => sg.color));
+                adaptBackgroundColor([...lastDetectedMainColors, ..._gColors]);
+                scheduleDisplayColors();
             }
 
             // Retourne true si le dégradé est visuellement de droite→gauche
@@ -1612,7 +1833,7 @@
             function exportRaster(format, exportScale = 2, filename = null) {
                 if (!currentSVG) {
                     console.error('No SVG found');
-                    alert('Aucun SVG chargé');
+                    alert(t('alert.no_svg_loaded'));
                     return;
                 }
 
@@ -1713,7 +1934,7 @@
 
                             canvas.toBlob(function (blob) {
                                 if (!blob) {
-                                    alert('Erreur creation blob image');
+                                    alert(t('alert.blob_error'));
                                     return;
                                 }
                                 const extension = format === 'jpeg' ? 'jpg' : 'png';
@@ -1721,18 +1942,18 @@
                             }, `image/${format}`, 0.95);
                         } catch (err) {
                             console.error('Canvas draw error:', err);
-                            alert('Erreur dessin canvas: ' + err.message);
+                            alert(t('alert.canvas_error') + ': ' + err.message);
                         }
                     };
                     img.onerror = function (e) {
                         console.error('Img load error', e);
-                        alert('Erreur chargement SVG pour export');
+                        alert(t('alert.svg_load_error'));
                     };
                     img.src = svgDataUrl;
 
                 } catch (err) {
                     console.error('Export error total:', err);
-                    alert('Erreur export: ' + err.message);
+                    alert(t('alert.export_error') + ': ' + err.message);
                 }
             }
             function downloadBlob(blob, filename) {
@@ -2108,7 +2329,7 @@
             };
             // Initialiser les tooltips sur les éléments HTML statiques [data-tooltip]
             document.querySelectorAll('[data-tooltip]').forEach(el => {
-                Tooltip.attach(el, el.getAttribute('data-tooltip'));
+                Tooltip.attach(el, () => el.getAttribute('data-tooltip'));
             });
 
             // =====================================================================
@@ -2965,3 +3186,4 @@
                     }
                 }).join(' ');
             }
+
